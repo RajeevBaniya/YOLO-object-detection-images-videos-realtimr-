@@ -1,0 +1,5 @@
+# Ignore all .mp4 files in the root and subdirectories
+**/*.mp4
+**/yolo-coco/yolov3.weights
+
+
