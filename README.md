@@ -1,4 +1,4 @@
-# SmartSentry: Intelligent Object Detection System
+# YOLO-object-detection-with-OpenCV
 
 A comprehensive implementation of real-time object detection using the YOLO (You Only Look Once) architecture. This system can detect objects from images, videos, and real-time camera feeds with high accuracy and performance.
 
