@@ -2,7 +2,6 @@
 
 A comprehensive implementation of real-time object detection using the YOLO (You Only Look Once) architecture. This system can detect objects from images, videos, and real-time camera feeds with high accuracy and performance.
 
-![System Workflow](system workflow.png)
 
 ## Features
 
@@ -113,8 +112,6 @@ python real_time_object_detection.py --confidence 0.6 --threshold 0.3
 
 The system achieves high accuracy across different detection scenarios:
 
-![Accuracy Comparison](charts/images/accuracy_comparison.png)
-
 - **Image Detection**: ~96.5% overall accuracy
 - **Video Detection**: ~95.8% overall accuracy
 - **Real-time Detection**: ~95.3% overall accuracy
@@ -134,12 +131,4 @@ You can customize the detection parameters:
 - Object counting and tracking
 - Intruder detection systems
 
-## License
 
-This project is released under the MIT License.
-
-## Acknowledgments
-
-- YOLOv3 by Joseph Redmon and Ali Farhadi
-- COCO dataset for pre-trained weights
-- OpenCV team for the excellent computer vision library 
