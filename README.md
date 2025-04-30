@@ -43,10 +43,6 @@ python -c "import urllib.request; urllib.request.urlretrieve('https://raw.github
 python -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/pjreddie/darknet/master/data/coco.names', 'yolo-coco/coco.names.original')"
 ```
 
-### Installation
-Install the required dependencies:
-
-```
 pip install numpy opencv-python imutils
 ```
 
