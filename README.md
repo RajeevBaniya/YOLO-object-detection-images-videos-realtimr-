@@ -1,171 +1,145 @@
-# YOLO-object-detection-with-OpenCV
-Object detection using YOLO object detector with simplified classification
+# SmartSentry: Intelligent Object Detection System
 
-## What's New: Simplified Classification System
-This project now features a simplified classification system that can detect these categories:
-- **Person** (green bounding boxes)
-- **Animal** (red bounding boxes)
-- **Bird** (yellow bounding boxes)
-- **Other Object** (gray bounding boxes)
+A comprehensive implementation of real-time object detection using the YOLO (You Only Look Once) architecture. This system can detect objects from images, videos, and real-time camera feeds with high accuracy and performance.
 
-This makes it easier to focus on distinguishing between humans, animals, birds, and other objects.
+![System Workflow](charts/images/system_workflow.png)
 
-### Detect objects in both images and video streams using Deep Learning, OpenCV, and Python.
+## Features
 
-This project uses YOLOv3 trained on the COCO dataset, but with a simplified classification system that maps the 80 COCO classes to the categories.
+- **Multiple Detection Modes**
+  - Image-based detection
+  - Video file detection
+  - Real-time camera detection
 
-## Accuracy Results
+- **Intelligent Classification**
+  - Person detection
+  - Animal detection
+  - Bird detection
+  - Other objects detection
 
-### Image Detection Accuracy
-- Overall Accuracy: 96.5%
+- **Performance Optimization**
+  - Non-maximum suppression to eliminate overlapping bounding boxes
+  - Configurable confidence thresholds
+  - Frame resizing for optimal performance
 
-### Video Detection Accuracy
-- Overall Accuracy: 95.8%
+- **Rich Visualization**
+  - Color-coded object categories
+  - Confidence percentages
+  - FPS counter
+  - Real-time accuracy metrics
 
-### Real-time Detection Accuracy
-- Overall Accuracy: 95.3%
-<!-- 
-Note: Accuracy results are based on testing with various images, videos, and real-time camera feeds. Results may vary depending on:
-- Image/video quality
-- Lighting conditions
-- Object size and distance
-- Camera resolution
-- Background complexity -->
+## System Requirements
 
-## Initial Setup
+- Python 3.6+
+- OpenCV 4.x
+- NumPy
+- imutils
+- matplotlib (for charts and visualization)
 
-### Download Required Files
-First, make sure to download the required model files:
+## Project Structure
 
 ```
-python -c "import urllib.request; urllib.request.urlretrieve('https://pjreddie.com/media/files/yolov3.weights', 'yolo-coco/yolov3.weights')"
-python -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov3.cfg', 'yolo-coco/yolov3.cfg')"
-python -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/pjreddie/darknet/master/data/coco.names', 'yolo-coco/coco.names.original')"
+SmartSentry/
+├── yolo-coco/                   # YOLO model files
+│   ├── coco.names               # Class names
+│   ├── coco.names.original      # Original COCO class names
+│   ├── yolov3.weights           # Pre-trained weights
+│   ├── yolov3.cfg               # Network configuration
+│   └── yolov3-custom.cfg        # Custom configuration
+│
+├── Object dection using image/  # Image detection module
+│   ├── images/                  # Sample images
+│   └── yolo.py                  # Image detection implementation
+│
+├── Object detection using video/ # Video detection module
+│   ├── videos/                  # Sample videos
+│   ├── output/                  # Output directory
+│   └── yolo_video.py            # Video detection implementation
+│
+├── real-time-object-detection/  # Real-time detection module
+│   ├── real_time_object_detection.py  # Real-time implementation
+│   └── MobileNetSSD files       # Alternative model files
+│
+├── charts/                      # Charts and visualizations
+│   └── images/                  # Generated charts
+│
+├── accuracy_comparison.py       # Accuracy comparison visualization
+└── system_workflow.py           # System workflow visualization
 ```
 
-pip install numpy opencv-python imutils
-```
+## Installation
 
-## Option 1: Image Object Detection
+1. Clone this repository:
+   ```
+   git clone https://github.com/yourusername/SmartSentry.git
+   ```
 
-### To Run Image Detection
-```
+2. Download the YOLOv3 weights (if not included):
+   ```
+   cd SmartSentry
+   # From official YOLO website
+   wget https://pjreddie.com/media/files/yolov3.weights -P yolo-coco/
+   ```
+
+3. Install dependencies:
+   ```
+   pip install opencv-python numpy imutils matplotlib
+   ```
+
+## Usage
+
+### Object Detection in Images
+
+```bash
 cd "Object dection using image"
-python yolo.py --image images/animal.jpg
+python yolo.py --image images/example.jpg --yolo ../yolo-coco
 ```
 
-### Options
-- `--image`: Path to the input image (required)
-- `--confidence`: Minimum probability threshold (default: 0.45)
-- `--threshold`: Non-maxima suppression threshold (default: 0.3)
+### Object Detection in Videos
 
-Example:
-```
-python yolo.py --image images/animal2.jpg --confidence 0.7
-```
-
-## Option 2: Video Object Detection
-
-### To Run Video Detection
-```
+```bash
 cd "Object detection using video"
-python yolo_video.py --input videos/h1.mp4 --output output/h1_output.avi --yolo ../yolo-coco
+python yolo_video.py --input videos/example.mp4 --output output/result.avi --yolo ../yolo-coco
 ```
 
-### Options
-- `--input`: Path to input video (required)
-- `--output`: Path to output video (required)
-- `--yolo`: Path to YOLO directory (required)
-- `--confidence`: Minimum probability threshold (default: 0.45)
-- `--threshold`: Non-maxima suppression threshold (default: 0.3)
+### Real-time Object Detection
 
-## Option 3: Real-time Object Detection
-
-### To Run Real-time Detection with Webcam
-```
+```bash
 cd real-time-object-detection
-python real_time_object_detection.py
+python real_time_object_detection.py --confidence 0.6 --threshold 0.3
 ```
 
-### Options
-- `--confidence`: Minimum probability threshold (default: 0.45)
-- `--threshold`: Non-maxima suppression threshold (default: 0.3)
+## Performance
 
-## How it Works
+The system achieves high accuracy across different detection scenarios:
 
-The system uses YOLOv3 for initial object detection, then maps the 80 COCO classes to our simplified category system:
+![Accuracy Comparison](charts/images/accuracy_comparison.png)
 
-1. **Person Category**: Includes only humans
-2. **Animal Category**: Includes birds, cats, dogs, horses, sheep, cows, elephants, bears, zebras, and giraffes
-3. **Other Object Category**: Everything else detected by YOLO
+- **Image Detection**: ~96.5% overall accuracy
+- **Video Detection**: ~95.8% overall accuracy
+- **Real-time Detection**: ~95.3% overall accuracy
 
-Each detection is clearly labeled with:
-- Category name
-- Confidence percentage
-- Color-coded bounding box (green for person, red for animal, blue for other objects)
+## Customization
 
-## Limitations
+You can customize the detection parameters:
 
-Despite the simplified classification, the system still has some limitations of the YOLO detector:
+- **--confidence**: Minimum probability threshold (default: 0.6)
+- **--threshold**: NMS threshold for eliminating overlapping boxes (default: 0.3)
 
-- May not handle small objects well
-- Can struggle with objects grouped close together
-- Performance varies based on lighting conditions and image quality
+## Applications
 
-To achieve the best results:
-- Ensure good lighting
-- Keep objects at a reasonable distance from the camera
-- Avoid very small objects or objects that are too far away
+- Security surveillance
+- Wildlife monitoring
+- Pedestrian detection
+- Object counting and tracking
+- Intruder detection systems
 
-## Screenshots
+## License
 
-![Example of Person and Other Object Detection](real-time-object-detection/real_time.gif)
+This project is released under the MIT License.
 
-The object detector can simultaneously detect persons, animals, and other objects in real-time with color-coded bounding boxes.
+## Acknowledgments
 
-## Object Detection Evaluation System
-
-This project includes a comprehensive evaluation system for measuring object detection accuracy on both images and videos.
-
-### Evaluation Features
-
-- **Ground Truth Annotation**: Create annotations for images and videos to establish "ground truth"
-- **Image Evaluation**: Evaluate detection accuracy on static images
-- **Video Evaluation**: Evaluate detection accuracy on video streams
-- **Comprehensive Reporting**: Generate detailed evaluation reports with metrics and visualizations
-
-### Evaluation Metrics
-
-The system calculates these important metrics:
-- **mAP (mean Average Precision)**: Overall accuracy across all classes
-- **Per-class AP**: Accuracy for each specific category (person, animal, etc.)
-- **Precision & Recall**: Measures of detection quality and completeness
-
-### Running the Evaluation System
-
-1. **Create ground truth annotations for images**:
-   ```
-   python evaluation/create_ground_truth.py --image-dir "Object dection using image/images" --output ground_truth.json
-   ```
-
-2. **Create ground truth annotations for videos**:
-   ```
-   python evaluation/create_video_ground_truth.py --video-dir "Object detection using video/videos" --output video_ground_truth.json
-   ```
-
-3. **Evaluate image detection accuracy**:
-   ```
-   python evaluation/evaluate_accuracy.py --ground-truth ground_truth.json --image-dir "Object dection using image/images" --weights yolo-coco/yolov3.weights --config yolo-coco/yolov3.cfg --output image_metrics.json
-   ```
-
-4. **Evaluate video detection accuracy**:
-   ```
-   python evaluation/evaluate_video.py --video "Object detection using video/videos/h1.mp4" --ground-truth video_ground_truth.json --weights yolo-coco/yolov3.weights --config yolo-coco/yolov3.cfg --output video_metrics.json
-   ```
-
-5. **Generate an evaluation report**:
-   ```
-   python evaluation/generate_report.py --image-metrics image_metrics.json --video-metrics video_metrics.json --output-dir evaluation_report
-   ```
-
-For detailed documentation on the evaluation system, see [evaluation/README.md](evaluation/README.md).
+- YOLOv3 by Joseph Redmon and Ali Farhadi
+- COCO dataset for pre-trained weights
+- OpenCV team for the excellent computer vision library 
